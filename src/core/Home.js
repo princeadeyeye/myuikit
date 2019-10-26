@@ -6,8 +6,6 @@ import React from "react";
 
 // core components
 import IndexHeader from "components/Headers/IndexHeader.js";
-import DarkFooter from "components/Footers/DarkFooter.js";
-import SignUp from "views/index-sections/SignUp.js";
 
 
 function Home() {
