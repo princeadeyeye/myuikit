@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {list} from './api-user.js';
+import {Link} from 'react-router-dom'
 import {
   Card,
   CardHeader,
@@ -19,8 +20,9 @@ function Users() {
   const [iconPills, setIconPills] = useState("1");
 
   useEffect(()=> {
-    list().then((data) => {
-      if(data === undefined){
+    list()
+    .then((data) => {
+      if(data.error){
         console.log('unable to get data')
       } else {
         setUsers(data)
@@ -59,11 +61,12 @@ function Users() {
                   >
                     <TabPane tabId="iconPills1">
                       {users.map((item, i) => {
-                        return <NavLink 
+                        return <Link 
                           to={"/user/" + item._id} 
                           key={i}>
                           {item.name}
-                        </NavLink>
+                        
+                        </Link>
                         }
                       )}
                     </TabPane>

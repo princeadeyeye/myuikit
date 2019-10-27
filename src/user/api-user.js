@@ -1,6 +1,6 @@
 
 const create = (user) => {
-	return fetch('/api/users/', {
+	return fetch('http://localhost:5000/api/users/', {
 		method: 'POST',
 		headers: { 
 			'Accept': 'application/json',
@@ -14,7 +14,7 @@ const create = (user) => {
 }
 
 const list = () => {
-	return fetch('/api/users/', {
+	return fetch('http://localhost:5000/api/users/', {
 		method: 'GET',
 		}).then(response => {
 			return response.json()

@@ -23,7 +23,7 @@ import {
 // core components
 
 function Signup() {
-  const [fisrtName, setFirstName] = useState('');
+  const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -47,7 +47,7 @@ function Signup() {
       setEmail(event.target.value)
     } 
   function onFirstNameChange(event) {
-      setFirstName(event.target.value)
+      setName(event.target.value)
     } 
   function onLastNameChange(event) {
       setLastName(event.target.value)
@@ -57,17 +57,25 @@ function Signup() {
     } 
   function clickSubmit() {
     const user = {
-      fisrtName: fisrtName || undefined,
+      name: name || undefined,
       lastName: lastName || undefined,
       email: email || undefined,
-      password: password || undefined
+      hashed_password: password || undefined
     }
     create(user).then((data) => {
       if(data.error) {
         setError(data.error)
+        setName('')
+        setPassword('')
+        setLastName('')
+        setEmail('')
       } else {
         setError('')
         setOpen(true)
+        setName('')
+        setPassword('')
+        setLastName('')
+        setEmail('')
       }
     })
   }
@@ -111,10 +119,10 @@ function Signup() {
                       <Input
                         placeholder=" First Name..."
                         type="text"
-                        value={fisrtName}
+                        value={name}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
-                        onChange={() => onFirstNameChange()}
+                        onChange={(e) => onFirstNameChange(e)}
                       ></Input>
                     </InputGroup>
                     <InputGroup
@@ -134,7 +142,7 @@ function Signup() {
                         value={lastName}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
-                        onChange={() => onLastNameChange()}
+                        onChange={(e) => onLastNameChange(e)}
                       ></Input>
                     </InputGroup>
                     <InputGroup
@@ -154,7 +162,7 @@ function Signup() {
                         value={email}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
-                        onChange={() => onEmailChange()}
+                        onChange={(e) => onEmailChange(e)}
                       ></Input>
                     </InputGroup>
                     <InputGroup
@@ -170,11 +178,11 @@ function Signup() {
                       </InputGroupAddon>
                       <Input
                         placeholder="Password..."
-                        type="text"
+                        type="password"
                         value={password}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
-                        onChange={() => onPasswordChange()}
+                        onChange={(e) => onPasswordChange(e)}
                       ></Input>
                       <br/>
                       {error && <h6>{error}</h6> }
