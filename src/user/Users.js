@@ -65,7 +65,7 @@ function Users() {
                           to={"/user/" + item._id} 
                           key={i}>
                           {item.name}
-                        
+                          <br />
                         </Link>
                         }
                       )}

@@ -27,7 +27,7 @@ function Signin() {
   
 
   const [email, setEmail] = useState(''); 
-  const [password, setPassword] = useState(''); 
+  const [hashed_password, setHashedPassword] = useState(''); 
   const [error, setError] = useState(''); 
   const [reToRef, setReToRef] = useState(false); 
   const [firstFocus, setFirstFocus] = useState(false);
@@ -48,12 +48,12 @@ function Signin() {
   function clickSubmit() {
     const user = {
       email: email || undefined,
-      password: password || undefined
+      hashed_password: hashed_password || undefined
     }
 
     signin(user).then((data) => {
       if(data.error) {
-        setError(data.error)
+        setError('Unable to sign in ')
       } else {
         auth.autheniticate(data, () => {
           setReToRef(true)
@@ -65,7 +65,12 @@ function Signin() {
   if(reToRef) {
     return(<Redirect to={from} />)
   }
-
+function onEmailChange(event) {
+      setEmail(event.target.value)
+    } 
+function onPasswordChange(event) {
+      setHashedPassword(event.target.value)
+    } 
 
   return (
     <>
@@ -104,8 +109,10 @@ function Signin() {
                       <Input
                         placeholder="Email..."
                         type="text"
+                        value={email}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
+                        onChange={(e) => onEmailChange(e)}
                       ></Input>
                     </InputGroup>
                     <InputGroup
@@ -121,19 +128,21 @@ function Signin() {
                       </InputGroupAddon>
                       <Input
                         placeholder="Password..."
-                        type="text"
+                        type="password"
+                        value={hashed_password}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
+                        onChange = {(e) => onPasswordChange(e)}
                       ></Input>
                     </InputGroup>
+                    {error}
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
                       block
                       className="btn-round"
                       color="info"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
+                      onClick={e => clickSubmit()}
                       size="lg"
                     >
                      Login

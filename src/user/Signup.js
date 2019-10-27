@@ -25,7 +25,7 @@ import {
 function Signup() {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
+  const [hashed_password, setHashedPassword] = useState('');
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
@@ -53,29 +53,26 @@ function Signup() {
       setLastName(event.target.value)
     } 
   function onPasswordChange(event) {
-      setPassword(event.target.value)
+      setHashedPassword(event.target.value)
     } 
   function clickSubmit() {
     const user = {
       name: name || undefined,
       lastName: lastName || undefined,
       email: email || undefined,
-      hashed_password: password || undefined
+      hashed_password: hashed_password || undefined
     }
     create(user).then((data) => {
       if(data.error) {
         setError(data.error)
         setName('')
-        setPassword('')
+        setHashedPassword('')
         setLastName('')
         setEmail('')
       } else {
         setError('')
         setOpen(true)
-        setName('')
-        setPassword('')
-        setLastName('')
-        setEmail('')
+        
       }
     })
   }
@@ -179,7 +176,7 @@ function Signup() {
                       <Input
                         placeholder="Password..."
                         type="password"
-                        value={password}
+                        value={hashed_password}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
                         onChange={(e) => onPasswordChange(e)}

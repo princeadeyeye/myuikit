@@ -44,7 +44,7 @@ const update = (params, credentials, user) => {
 			'Content-Type': 'application/json',
 			'Authorization': 'Bearer ' + credentials.t
 		},
-			body: JSON.stringify(user)
+			body: JSON.stringify({user})
 		}).then((response) => {
 			return response.json()
 			}).catch((err) => {
